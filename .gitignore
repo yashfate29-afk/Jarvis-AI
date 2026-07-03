@@ -1,0 +1,10 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# User configuration
+user_config.json
+
+# Windows
+desktop.ini

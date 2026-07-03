@@ -1,0 +1,117 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+/* Disable dark variant usage */
+@custom-variant dark (&:is(.dark *));
+
+/* =========================
+   
+========================= */
+:root {
+  --background: #ffffff;
+  --foreground: #000000;
+
+  --card: #ffffff;
+  --card-foreground: #000000;
+
+  --popover: #ffffff;
+  --popover-foreground: #000000;
+
+  --primary: #0075f2;
+  --primary-hover: #005fd1;
+  --primary-foreground: #ffffff;
+
+  --secondary: #f3f3f3;
+  --secondary-foreground: #000000;
+
+  --muted: #f3f3f3;
+  --muted-foreground: #555555;
+
+  --accent: #eef4ff;
+  --accent-foreground: #000000;
+
+  --border: #d9d9d9;
+  --input: #d9d9d9;
+  --ring: #0075f2;
+
+  --radius: 0.625rem;
+}
+
+/* Disable dark mode completely */
+.dark {
+  --background: #ffffff !important;
+  --foreground: #000000 !important;
+  --card: #ffffff !important;
+  --popover: #ffffff !important;
+}
+
+/* =========================
+   THEME MAPPING
+========================= */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+}
+
+/* =========================
+   BASE STYLES
+========================= */
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    min-height: 100vh;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* =========================
+   FORCE WHITE UI
+========================= */
+main,
+section,
+article,
+div {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+/* Forms */
+input,
+textarea,
+select,
+button {
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+
+/* Fix accidental white text */
+.text-fg1,
+.flex-1,
+.gap-0\.5 {
+  color: #000000 !important;
+}
+
+/* Buttons / muted */
+.bg-muted {
+  background-color: #eef4ff !important;
+}
+
+/* Headings / center text */
+.text-center {
+  color: #005fd1;
+}
