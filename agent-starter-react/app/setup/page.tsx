@@ -1,6 +1,5 @@
 'use client';
-
-import { useState } from 'react';
+import { useState, type ChangeEvent, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -15,10 +14,27 @@ import {
 import { toastAlert } from '@/components/alert-toast';
 import { GOOGLE_VOICES, OPENAI_VOICES } from '@/lib/voice_constants';
 
+type SetupFormData = {
+    user_id: string;
+    user_name: string;
+    assistant_name: string;
+    llm_provider: string;
+    llm_model: string;
+    llm_voice: string;
+    api_key: string;
+    livekit_url: string;
+    livekit_key: string;
+    livekit_secret: string;
+    mem0_key: string;
+    google_search_key: string;
+    search_engine_id: string;
+    openweather_key: string;
+};
+
 export default function SetupPage() {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<SetupFormData>({
         user_id: '',
         user_name: '',
         assistant_name: 'Jarvis', // Default Value
@@ -35,7 +51,7 @@ export default function SetupPage() {
         openweather_key: '',
     });
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
@@ -49,7 +65,7 @@ export default function SetupPage() {
         });
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);
 
@@ -131,10 +147,10 @@ export default function SetupPage() {
                                     <Input
                                         id="user_id"
                                         name="user_id"
-                                        placeholder="unique_handle (e.g. gaurav_01)"
+                                        placeholder="unique_handle (e.g. yash_01)"
                                         required
                                         value={formData.user_id}
-                                        onChange={(e) => {
+                                        onChange={(e: ChangeEvent<HTMLInputElement>) => {
                                             // Auto-fill display name if empty/matching
                                             const newVal = e.target.value.replace(/[^a-zA-Z0-9_-]/g, '').toLowerCase();
                                             setFormData(prev => ({

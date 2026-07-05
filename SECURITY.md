@@ -32,4 +32,8 @@ I will investigate the report and work to provide a fix as soon as possible.
 - Review code before merging changes.
 - Use strong, unique credentials for any external services.
 
+<<<<<<< Updated upstream
 Thank you for helping keep this project secure.
+=======
+Thank you for helping keep this project secure.
+>>>>>>> Stashed changes

@@ -65,7 +65,7 @@ class ConfigManager:
         """
         if "user_id" not in self._config:
             # Fallback: Use current user_name as base for ID, or generate one
-            # Using user_name ensures backward compat (memories attached to "Gaurav" stay with "Gaurav")
+            # Using user_name ensures backward compat (memories attached to "Yash" stay with "Yash")
             current_name = self.get("user_name", "primary_user")
             # Sanitize to be a clean ID (optional, but keeping it same as name for backward compat is safer for Mem0)
             self._config["user_id"] = current_name
