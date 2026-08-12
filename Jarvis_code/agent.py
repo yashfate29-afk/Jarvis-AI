@@ -54,7 +54,6 @@ async def entrypoint(ctx: agents.JobContext):
         if mem0_key:
             mem0_client = AsyncMemoryClient(api_key=mem0_key)
 
-            # ✅ FIXED mem0 call
             all_memories = await mem0_client.get_all(filters={"user_id": user_id})
 
             memory_str = "\n".join([
@@ -109,7 +108,6 @@ async def entrypoint(ctx: agents.JobContext):
         content=f"The user's name is {full_name}.{memory_str}"
     )
 
-    # ✅ FIXED: removed noise_cancellation crash
     await session.start(
         room=ctx.room,
         agent=Assistant(
@@ -148,8 +146,8 @@ if __name__ == "__main__":
         config.load_config()
 
         lk_url = config.get_api_key("livekit_url")
-        lk_key = config.get_api_key("livekit_key")
-        lk_secret = config.get_api_key("livekit_secret")
+        lk_key = config.get_api_key("livekit_api_key")
+        lk_secret = config.get_api_key("livekit_api_secret")
 
         if lk_url and lk_key and lk_secret:
             print(f"Connecting to LiveKit: {lk_url}")
@@ -158,7 +156,6 @@ if __name__ == "__main__":
             os.environ["LIVEKIT_API_KEY"] = lk_key
             os.environ["LIVEKIT_API_SECRET"] = lk_secret
 
-            # LLM keys
             if config.get_api_key("google"):
                 os.environ["GOOGLE_API_KEY"] = config.get_api_key("google")
 
