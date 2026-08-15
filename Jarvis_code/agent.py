@@ -167,6 +167,6 @@ if __name__ == "__main__":
             print("Waiting for setup...")
             time.sleep(2)
 
-    agents.cli.run_app(
-        agents.WorkerOptions(entrypoint_fnc=entrypoint)
+        agents.cli.run_app(
+        agents.WorkerOptions(entrypoint_fnc=entrypoint, agent_name="jarvis-agent")
     )

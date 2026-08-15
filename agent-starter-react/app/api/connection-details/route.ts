@@ -11,7 +11,7 @@ export async function POST() {
       throw new Error("Missing LiveKit environment variables");
     }
 
-    const room = "jarvis-room";
+    const room = "jarvis-room-" + Math.random().toString(36).substring(2, 10);
     const identity = "user-" + Math.floor(Math.random() * 1000);
 
     const at = new AccessToken(apiKey, apiSecret, {
