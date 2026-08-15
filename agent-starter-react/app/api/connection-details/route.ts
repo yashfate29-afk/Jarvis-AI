@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { AccessToken } from "livekit-server-sdk";
+import { AccessToken, RoomAgentDispatch, RoomConfiguration } from "livekit-server-sdk";
 
 export async function POST() {
   try {
@@ -14,6 +14,12 @@ export async function POST() {
     const room = "jarvis-room-" + Math.random().toString(36).substring(2, 10);
     const identity = "user-" + Math.floor(Math.random() * 1000);
 
+    const roomConfig = new RoomConfiguration({
+      agents: [
+        new RoomAgentDispatch({ agentName: "jarvis-agent" }),
+      ],
+    });
+
     const at = new AccessToken(apiKey, apiSecret, {
       identity,
     });
@@ -25,19 +31,17 @@ export async function POST() {
       canSubscribe: true,
     });
 
+    at.roomConfig = roomConfig;
+
     const token = await at.toJwt();
 
     return NextResponse.json({
-      url,
-      token,
-      room,
+      serverUrl: url,
+      participantToken: token,
+      roomName: room,
     });
   } catch (err: any) {
     console.error("❌ TOKEN ERROR:", err);
-
-    return NextResponse.json(
-      { error: err.message },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: err.message }, { status: 500 });
   }
 }
