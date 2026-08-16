@@ -1,4 +1,5 @@
 import sys
+import asyncio
 if sys.stdout.encoding.lower() != "utf-8":
     sys.stdout.reconfigure(encoding="utf-8")
     sys.stderr.reconfigure(encoding="utf-8")
@@ -98,9 +99,9 @@ async def entrypoint(ctx: agents.JobContext):
     # =========================
     # SESSION START
     # =========================
-    session = AgentSession(
-        preemptive_generation=True
-    )
+    session = AgentSession()
+     
+   
 
     initial_ctx = ChatContext()
     initial_ctx.add_message(
@@ -117,6 +118,14 @@ async def entrypoint(ctx: agents.JobContext):
         ),
         room_input_options=RoomInputOptions()
     )
+
+    await asyncio.sleep(2)
+
+    # Initial reply
+    await session.generate_reply(
+        instructions=reply_prompt
+    )
+    
 
     # Initial reply
     await session.generate_reply(
@@ -167,6 +176,6 @@ if __name__ == "__main__":
             print("Waiting for setup...")
             time.sleep(2)
 
-        agents.cli.run_app(
+    agents.cli.run_app(
         agents.WorkerOptions(entrypoint_fnc=entrypoint, agent_name="jarvis-agent")
     )
